@@ -22,8 +22,7 @@ public class MainActivity extends AppCompatActivity {
     
     private String currentFlavorString;
     private String desiredFlavorString;
-    private TextView extractText;
-    private TextView coffeeText;
+    private TextView directionsText;
     private Button brewButton;
 
     @Override
@@ -36,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         currentFlavor = findViewById(R.id.currentFlavor);
         desiredFlavor = findViewById(R.id.desiredFlavor);
-        extractText = findViewById(R.id.extractText);
-        coffeeText = findViewById(R.id.coffeeText);
+        directionsText = findViewById(R.id.directionsText);
         brewButton = findViewById(R.id.brewButton);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, FLAVORS);
@@ -72,12 +70,65 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 float[] directions = covfefe.calculateBrewChanges(currentFlavorString, desiredFlavorString);
-
-                extractText.setText("Coffee: " + directions[0] + "");
-                coffeeText.setText("Extract: " + directions[1] + " and Z-Change: " + directions[2]);
+                String textDirections = useDirections(directions);
+                directionsText.setText(textDirections);
             }
         });
 
 
+    }
+
+    private String useDirections(float[] directions)  {
+        String concat = "";
+        String coffeeString = "";
+        String extractString = "";
+        String intensity = determineIntensity(directions[2]);
+        String endString = "";
+
+        //If both coffee and extract strings will be used, we will need to concatenate them
+        if(directions[0] != 0 && directions[1] != 0){
+            concat = "and use ";
+        }
+
+        if(directions[1] == 1){
+            extractString = "Extract " + intensity + "more ";
+        }
+        else if(directions[1] == -1){
+            extractString = "Extract " + intensity + "less ";
+        }
+
+        if(directions[0] == 1){
+            coffeeString = intensity + "more coffee.";
+        } else if(directions[0] == -1){
+            coffeeString = intensity + "less coffee.";
+        }
+
+        //If there isn't an extract phrase, capitalize the first letter of the coffee phrase.
+        //If there isn't a coffee phrase, put a period at the end.
+        if(directions[1] == 0 && directions[0] != 0){
+            coffeeString = coffeeString.substring(0,1).toUpperCase() + coffeeString.substring(1);
+        } else if(directions[0] == 0 && directions[1] != 0){
+            extractString = extractString.substring(0,extractString.length()-1) + ".";
+        }
+
+        endString = extractString + concat + coffeeString;
+        return endString;
+    }
+
+    private String determineIntensity(float intensityNum){
+        String word = "";
+        if(intensityNum <=2) {
+            word = "a tiny bit ";
+        } else if(intensityNum <= 3){
+            word = "a little bit ";
+        } else if(intensityNum <= 4){
+            word = "a little ";
+        } else if(intensityNum <= 5){
+            word = "";
+        } else if(intensityNum > 5){
+            word = "a fair amount ";
+        }
+
+        return word;
     }
 }

@@ -30,10 +30,10 @@ public class CoffeeCompass {
             new RadialCoordinate(4.8f, 117.7f), new RadialCoordinate(4.6f, 128.57f), new RadialCoordinate(3.9f, 136.4f),
             new RadialCoordinate(6f, 165.2f), new RadialCoordinate(4f, 180f), new RadialCoordinate(4.1f, 192.25f),
             new RadialCoordinate(4.6f, 236.25f), new RadialCoordinate(3, 241f), new RadialCoordinate(5, 247.5f),
-            new RadialCoordinate(4.6f, 270f), new RadialCoordinate(3.8f, 270f), new RadialCoordinate(2.8f, 282.2f),
+            new RadialCoordinate(4.6f, 270f), new RadialCoordinate(3.8f, 270f), new RadialCoordinate(1.8f, 282.2f),
             new RadialCoordinate(5, 282.2f), new RadialCoordinate(4, 323.4f), new RadialCoordinate(3.3f, 347.2f),
-            new RadialCoordinate(3.9f, 0), new RadialCoordinate(3.2f, 7f), new RadialCoordinate(4, 38.57f),
-            new RadialCoordinate(3.1f, 64.28f), new RadialCoordinate(1, 90), new RadialCoordinate(3.4f, 94f),
+            new RadialCoordinate(3.9f, 0), new RadialCoordinate(2.2f, 7f), new RadialCoordinate(4, 38.57f),
+            new RadialCoordinate(3.1f, 64.28f), new RadialCoordinate(1.5f, 90), new RadialCoordinate(3.4f, 94f),
             new RadialCoordinate(3.4f, 87), new RadialCoordinate(4.2f, 77.14f), new RadialCoordinate(4.1f, 90f),
             new RadialCoordinate(5, 77.142f), new RadialCoordinate(0, 0)};
 
@@ -58,9 +58,7 @@ public class CoffeeCompass {
         RadialCoordinate currentPoint = getRadialCoordinate(currentName);
         RadialCoordinate desiredPoint = getRadialCoordinate(desiredName);
         float xChange = calcChangeX(currentPoint, desiredPoint);
-        System.out.println(xChange);
         float yChange = calcChangeY(currentPoint, desiredPoint);
-        System.out.println(yChange);
         float zChange = (float) Math.sqrt((xChange * xChange) + (yChange * yChange));
         float degree = calcBrewDegree(xChange, yChange);
 
@@ -102,6 +100,16 @@ public class CoffeeCompass {
 
     private float calcBrewDegree(float x, float y) {
         float degree = 0;
+
+        //If x and y are very small, make them equal to 0.
+        if(x < .001 && x >= 0){
+            x = 0;
+        }
+
+        if(y < .001 && y >= 0){
+            y = 0;
+        }
+
         if (x == 0 && y == 0) {
             degree = -1;
         } else if (x == 0) {
@@ -120,8 +128,10 @@ public class CoffeeCompass {
             int quadrant = determineQuadrant(x, y);
             System.out.println(quadrant);
             double radian = Math.atan((double) y / x);
-
             degree = ((quadrant - 1) * 90) + (float)Math.toDegrees(radian);
+            if(quadrant == 2 || quadrant == 4){
+                degree += 90;
+            }
             System.out.println(degree);
         }
 

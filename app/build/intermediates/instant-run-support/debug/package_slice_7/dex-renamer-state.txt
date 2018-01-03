@@ -1,4 +1,4 @@
-#Tue Jan 02 20:39:01 CST 2018
+#Wed Jan 03 14:03:57 CST 2018
 base.0=C\:\\Users\\Kyle Levy\\git\\BrewWhiz\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\7
 path.0=classes.dex
 renamed.0=classes.dex
