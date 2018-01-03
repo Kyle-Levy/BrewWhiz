@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.kylelevydevgmail.brewwhiz.MainActivity">
 
-    <AutoCompleteTextView
+    <Spinner
         android:id="@+id/currentFlavor"
         android:layout_width="0dp"
         android:layout_height="41dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,14 +41,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <AutoCompleteTextView
+    <Spinner
         android:id="@+id/desiredFlavor"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/currentFlavor" />
+
+    <TextView
+        android:id="@+id/extractText"
+        android:layout_width="350dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brewButton" />
+
+    <TextView
+        android:id="@+id/coffeeText"
+        android:layout_width="350dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/extractText" />
+
+    <Button
+        android:id="@+id/brewButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Brew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 </android.support.constraint.ConstraintLayout>
