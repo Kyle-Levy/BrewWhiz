@@ -36,17 +36,102 @@ public class CoffeeCompass {
             new RadialCoordinate(3.4f, 87), new RadialCoordinate(4.2f, 77.14f), new RadialCoordinate(4.1f, 90f),
             new RadialCoordinate(5, 77.142f), new RadialCoordinate(0,0)};
 
-    private static HashMap<String, RadialCoordinate> compass = initializeCompass();
+    private static final HashMap<String, RadialCoordinate> compass = initializeCompass();
 
     private static HashMap<String, RadialCoordinate> initializeCompass() {
 
         HashMap<String, RadialCoordinate> methodCompass = new HashMap<>();
 
         for(int i = 0; i<flavorNames.length;i++) {
-            System.out.println("\"" + flavorNames[i].toLowerCase() + "\"" + flavorCoordinates[i]);
             methodCompass.put(flavorNames[i].toLowerCase(), flavorCoordinates[i]);
         }
 
         return methodCompass;
+    }
+
+    public  RadialCoordinate getRadialCoordinate(String name){
+        return compass.get(name.toLowerCase());
+    }
+
+    public float[] calculateBrewChanges(RadialCoordinate currentPoint, RadialCoordinate desiredPoint) {
+        float xChange = calcChangeX(currentPoint, desiredPoint);
+        float yChange = calcChangeY(currentPoint,desiredPoint);
+        float zChange = (float)Math.sqrt((xChange * xChange) + (yChange * yChange));
+        float degree = calcBrewDegree(xChange, yChange);
+
+        int moreCoffee = 0, lessCoffee = 0, extractMore = 0, extractLess = 0;
+        if(degree == -1){
+            
+        }
+            else if(degree < 22.5 || degree >= 337.5)    {
+            extractMore = 1;
+            lessCoffee = 1;
+        } else if(degree >= 22.5 && degree < 67.5)  {
+            extractMore = 1;
+        } else if(degree >= 67.5 && degree < 112.5) {
+            moreCoffee = 1;
+        } else if(degree>=112.5 && degree < 157.5)  {
+            extractLess = 1;
+            moreCoffee = 1;
+        } else if(degree >= 157.5 && degree < 202.5)    {
+            extractLess = 1;
+            moreCoffee = 1;
+        } else if(degree >= 202.5 && degree < 247.5)    {
+            extractLess = 1;
+        } else if(degree >= 247.5 && degree < 292.5)    {
+            lessCoffee = 1;
+        } else if(degree >= 292.5 && degree < 337.5)    {
+            extractMore = 1;
+            lessCoffee = 1;
+        }
+
+        float[] directions = {moreCoffee, lessCoffee, extractMore, extractLess, zChange};
+        return directions;
+    }
+    private float calcChangeX(RadialCoordinate currentPoint, RadialCoordinate desiredPoint) {
+        return desiredPoint.getRun() - currentPoint.getRun();
+    }
+
+    private float calcChangeY(RadialCoordinate currentPoint, RadialCoordinate desiredPoint) {
+        return desiredPoint.getRise() - currentPoint.getRise();
+    }
+
+    private float calcBrewDegree(float x, float y){
+        float degree = 0;
+        if(x == 0 && y == 0){
+            degree = -1;
+        }
+        else if(x == 0){
+            if(y > 0){
+                degree = 90;
+            } else if(y < 0){
+                degree = 270;
+            }
+        } else if(y == 0){
+            if(x > 0){
+                degree = 0;
+            } else if(x < 0){
+                degree = 180;
+            }
+        } else{
+            int quadrant = determineQuadrant(x,y);
+            degree = ((quadrant -1) * 90) + (float)Math.atan((double)y/x);
+        }
+
+        return degree;
+    }
+
+    private int determineQuadrant(float x, float y){
+        int quadrant = 0;
+        if(x > 0 && y > 0)  {
+            quadrant = 1;
+        } else if (x < 0 && y > 0)  {
+            quadrant = 2;
+        } else if(x < 0 && y < 0)   {
+            quadrant = 3;
+        } else if(x > 0 && y < 0 )  {
+            quadrant = 4;
+        }
+        return quadrant;
     }
 }
