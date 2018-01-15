@@ -3,4 +3,5 @@
     <string name="current_flavor">Current Flavor:</string>
     <string name="desired_flavor">Desired Flavor:</string>
     <string name="hint_flavor">Type here</string>
+    <string name="brew_text">Brew</string>
 </resources>

@@ -10,7 +10,7 @@ public class CoffeeCompass {
     private static final String[] flavorNames = {"Soupy", "Bulky", "Beefy", "Dull", "QuickFinish", "Salty", "Sour", "Vegetal",
             "Nutty", "Bland", "Underwhelming", "Insipid", "Watery", "Tea-like", "Flimsy", "Slender", "Sparse",
             "Faint", "Muted", "Scrawny", "Fragile", "Dilute", "Limp", "Astringent", "Dusty", "Empty", "Powdery",
-            "Bitter", "Dry", "Intense", "Potent", "Severe", "Harsh", "Overwhelming ", "Big", "Sticky", "Plump",
+            "Bitter", "Dry", "Intense", "Potent", "Severe", "Harsh", "Overwhelming", "Big", "Sticky", "Plump",
             "Substantial", "Buttery", "Smooth", "Nuanced", "Soft", "Creamy", "Transparent", "Thin", "Gentle",
             "Tasty", "Delicate", "Aromatic", "Pleasing", "Sweet", "Fruity", "Rich", "Luscious", "Mouth-filling",
             "Heavy", "Robust", "Thick", "Strong", "Hefty", "Balanced"};

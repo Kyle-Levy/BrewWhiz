@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         currentFlavor.setAdapter(adapter);
         desiredFlavor.setAdapter(adapter);
 
+        //Sets default desired flavor to "Balanced"
+        desiredFlavor.setSelection(2);
+
         currentFlavor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
@@ -88,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
         //If both coffee and extract strings will be used, we will need to concatenate them
         if(directions[0] != 0 && directions[1] != 0){
             concat = "and use ";
+        }
+
+        if(directions[0] == 0 && directions[1] == 0 && directions[2] == 0){
+            extractString =  "You already have the desired cup!";
         }
 
         if(directions[1] == 1){
